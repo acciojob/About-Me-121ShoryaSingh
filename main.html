@@ -1,1 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Profile - John Doe</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            overflow: hidden;
+            border: 5px solid #667eea;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .section h2 {
+            color: #667eea;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section h2 i {
+            font-size: 1.5rem;
+        }
+
+        .contact-info {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding: 10px;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            transition: background 0.3s ease;
+        }
+
+        .contact-info li:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .contact-info i {
+            color: #667eea;
+            width: 20px;
+            text-align: center;
+        }
+
+        .profile-badge {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            display: inline-block;
+            margin: 10px 0;
+            font-weight: 500;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .skills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .skill-item {
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.02);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .skill-name {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .skill-name i {
+            color: #667eea;
+            font-size: 1.2rem;
+        }
+
+        .skill-percentage {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .skill-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            border-radius: 10px;
+            transition: width 2s ease-in-out;
+            position: relative;
+        }
+
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .badge {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .badge:hover {
+            transform: translateY(-2px);
+        }
+
+        .text-content {
+            font-size: 1rem;
+            line-height: 1.8;
+            color: #555;
+            text-align: justify;
+        }
+
+        .highlight {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                padding: 10px;
+            }
+            
+            .sidebar {
+                position: static;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .section h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        /* Animation for skill bars on page load */
+        .skill-progress.animate {
+            animation: fillBar 2s ease-in-out forwards;
+        }
+
+        @keyframes fillBar {
+            from { width: 0; }
+            to { width: var(--skill-width); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="profile-image">
+                <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face" alt="John Doe Profile Picture">
+            </div>
+            
+            <!-- Name Section -->
+            <div class="section">
+                <h2><i class="fas fa-user"></i>Name</h2>
+                <div class="text-content">
+                    <strong class="highlight">John Michael Doe</strong>
+                </div>
+            </div>
+
+            <!-- Email Section -->
+            <div class="section">
+                <h2><i class="fas fa-envelope"></i>Email</h2>
+                <div class="text-content">
+                    <a href="mailto:john.doe@email.com" style="color: #667eea; text-decoration: none;">
+                        john.doe@email.com
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contact Info -->
+            <ul class="contact-info">
+                <li>
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (555) 123-4567</span>
+                </li>
+                <li>
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>San Francisco, CA</span>
+                </li>
+                <li>
+                    <i class="fab fa-linkedin"></i>
+                    <span>linkedin.com/in/johndoe</span>
+                </li>
+                <li>
+                    <i class="fab fa-github"></i>
+                    <span>github.com/johndoe</span>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Profile Section -->
+            <div class="section">
+                <h2><i class="fas fa-briefcase"></i>Profile</h2>
+                <div class="profile-badge">Full Stack Web Developer</div>
+                <div class="text-content">
+                    Experienced <span class="highlight">Full Stack Web Developer</span> specializing in modern JavaScript frameworks and cloud technologies. Passionate about creating scalable web applications and delivering exceptional user experiences.
+                </div>
+            </div>
+
+            <!-- About Me Section -->
+            <div class="section">
+                <h2><i class="fas fa-user-circle"></i>About me</h2>
+                <div class="text-content">
+                    I am a dedicated and passionate <span class="highlight">Full Stack Developer</span> with over 5 years of experience in building web applications. I have a strong background in both frontend and backend technologies, with expertise in React, Node.js, and cloud platforms. I enjoy solving complex problems, learning new technologies, and collaborating with cross-functional teams to deliver high-quality software solutions. When I'm not coding, I love contributing to open-source projects and mentoring junior developers.
+                </div>
+                
+                <div class="badges-container">
+                    <div class="badge">
+                        <i class="fas fa-code"></i>
+                        <span>Problem Solver</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-users"></i>
+                        <span>Team Player</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Innovative</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Quick Learner</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="section">
+                <h2><i class="fas fa-chart-bar"></i>Skills</h2>
+                <div class="skills-container">
+                    <!-- Frontend Skills -->
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-name">
+                                <i class="fab fa-react"></i>
+                                <span>React.js</span>
+                            </div>
+                            <div class="skill-percentage">90%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-width: 90%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-name">
+                                <i class="fab fa-js-square"></i>
+                                <span>JavaScript</span>
+                            </div>
+                            <div class="skill-percentage">95%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-width: 95%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-name">
+                                <i class="fab fa-node-js"></i>
+                                <span>Node.js</span>
+                            </div>
+                            <div class="skill-percentage">85%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-width: 85%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-name">
+                                <i class="fab fa-python"></i>
+                                <span>Python</span>
+                            </div>
+                            <div class="skill-percentage">80%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-width: 80%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-name">
+                                <i class="fas fa-database"></i>
+                                <span>MongoDB</span>
+                            </div>
+                            <div class="skill-percentage">75%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-width: 75%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-name">
+                                <i class="fab fa-aws"></i>
+                                <span>AWS</span>
+                            </div>
+                            <div class="skill-percentage">70%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-width: 70%"></div>
+                        </div>
+                    </div>
+
+                    <div class="skill-item">
+                        <div class="skill-header">
+                            <div class="skill-name">
+                                <i class="fab fa-docker"></i>
+                                <span>Docker</span>
+                            </div>
+                            <div class="skill-percentage">65%</div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="--skill-width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Skill Badges -->
+                <div class="badges-container" style="margin-top: 30px;">
+                    <div class="badge">
+                        <i class="fab fa-html5"></i>
+                        <span>HTML5</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fab fa-css3-alt"></i>
+                        <span>CSS3</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fab fa-bootstrap"></i>
+                        <span>Bootstrap</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fab fa-git-alt"></i>
+                        <span>Git</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Responsive Design</span>
+                    </div>
+                    <div class="badge">
+                        <i class="fas fa-server"></i>
+                        <span>RESTful APIs</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Animate skill bars on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const skillBars = document.querySelectorAll('.skill-progress');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const skillWidth = entry.target.style.getPropertyValue('--skill-width');
+                        entry.target.style.width = skillWidth;
+                        entry.target.classList.add('animate');
+                    }
+                });
+            }, { threshold: 0.5 });
+            
+            skillBars.forEach(bar => {
+                bar.style.width = '0%';
+                observer.observe(bar);
+            });
+        });
+
+        // Add hover effects for sections
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            section.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>
 
